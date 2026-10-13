@@ -2,9 +2,11 @@
 
 [English](README.md) · [Abrir el editor](https://luigy23.github.io/fotograma/) · [Probar con el ejemplo](https://luigy23.github.io/fotograma/?ejemplo)
 
-![El editor con el ejemplo del mago pixel](docs/editor.png)
+<p align="center"><img src="docs/demo.gif" width="320" alt="El ejemplo incluido: un mago pixel respira, lanza un hechizo y celebra"></p>
 
 Editor de animaciones Lottie que funciona en el navegador, pensado para pixel art. Traes tu dibujo (PNG por capas o SVG de Figma), lo animas con keyframes en una línea de tiempo y exportas el JSON para la app, o una hoja de sprites. Sin cuentas ni planes de pago.
+
+![El editor con el ejemplo del mago: capas, lienzo, propiedades, efectos y línea de tiempo con segmentos](docs/editor.png)
 
 Capas a la izquierda, lienzo en el centro, propiedades a la derecha y línea de tiempo abajo, como en Lottie Creator.
 
@@ -121,4 +123,5 @@ React, TypeScript y Vite. La lógica está separada de la interfaz:
 - `src/io`: exportar e importar Lottie, importar SVG, optimizar antes de exportar, rasterizar (halos, sprites) y validar.
 - `src/store`: estado con deshacer, acciones, animaciones rápidas y horneado de halos.
 - `src/ui`: lienzo, capas, inspector, línea de tiempo, menús y exportación.
+- `src/examples/wizard.ts`: el ejemplo del mago, hecho en código con el pixel art escrito en texto (un carácter por píxel). Se abre con `?ejemplo` en la dirección.
 - `src/dev/fidelity.ts`: comparación píxel a píxel entre el lienzo y lottie-web, para usarla desde la consola en desarrollo.

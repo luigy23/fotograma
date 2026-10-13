@@ -724,12 +724,12 @@ export async function importImageSequence(files: File[], framesEach: number) {
 
 export const PROJECT_TAG = 'fotograma';
 
-/** Abre el proyecto de ejemplo que viene con la app (public/examples). */
+/** Abre el ejemplo que viene con la app (src/examples/wizard.ts). */
 export async function openExample(): Promise<boolean> {
   try {
-    const res = await fetch('./examples/mago.fotograma.json');
-    if (!res.ok) throw new Error();
-    openLottieText(await res.text());
+    const { buildWizardDemo } = await import('../examples/wizard');
+    S().replaceDoc(await buildWizardDemo());
+    S().setImportWarnings([]);
     return true;
   } catch {
     S().notify('No se pudo abrir el ejemplo.', 'error');

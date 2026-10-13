@@ -299,7 +299,8 @@ export function effectLayers(doc: Doc, node: Node, halos: Map<string, BakedHalo>
 
     if (fx.kind === 'sparkles') {
       const n = 3 + Math.round(k * 4);
-      const size = Math.max(3, Math.max(box.w, box.h) * (0.05 + k * 0.07));
+      // Proporcional a la capa, con un mínimo que no tape los sprites pequeños.
+      const size = Math.max(1.5, Math.max(box.w, box.h) * (0.08 + k * 0.08));
       const pts = pointsAround(box, n, rand, size);
       const cycle = period || doc.duration;
       pts.forEach((p, i) => {

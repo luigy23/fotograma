@@ -2,9 +2,11 @@
 
 [Open the editor](https://luigy23.github.io/fotograma/) · [Try the example](https://luigy23.github.io/fotograma/?ejemplo) · [Leer en español](README.es.md)
 
-![Fotograma editing a pixel-art wizard with a glow effect and named segments](docs/editor.png)
+<p align="center"><img src="docs/demo.gif" width="320" alt="The bundled example: a pixel-art wizard breathes, casts a spell and celebrates"></p>
 
 Fotograma is a Lottie animation editor that runs in the browser, built with pixel art in mind. You bring in a drawing (PNG layers or an SVG copied from Figma), animate it with keyframes on a timeline, and export a Lottie JSON that plays the same in Flutter, iOS, Android and on the web. It can also export a sprite sheet. No account and no paid plan.
+
+![The editor with the wizard example: layers, canvas, properties, effects and a timeline with named segments](docs/editor.png)
 
 The layout follows Lottie Creator: layers on the left, canvas in the middle, properties on the right and the timeline at the bottom. The interface is in Spanish for now; translations are welcome.
 
@@ -96,7 +98,7 @@ Built with React, TypeScript and Vite. The logic is kept apart from the interfac
 | `src/ui` | Canvas, layers, inspector, timeline, menus and export panel |
 | `src/dev/fidelity.ts` | Pixel-by-pixel comparison between the canvas and lottie-web, to run from the dev console |
 
-Add `?ejemplo` to the URL to open the bundled example (`public/examples/mago.fotograma.json`).
+Add `?ejemplo` to the URL to open the bundled example. It is built in code in `src/examples/wizard.ts`, with the pixel art written as text (one character per pixel), so it's easy to tweak or use as a reference for the API.
 
 ## Contributing
 

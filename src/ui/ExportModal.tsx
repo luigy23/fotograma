@@ -49,8 +49,8 @@ function checksFor(doc: Doc, out: FinalExport): Check[] {
     heavy += points;
     reasons.push(reason);
   };
-  if (layers > 40) add(2, `${layers} capas`);
-  else if (layers > 20) add(1, `${layers} capas`);
+  if (layers > 60) add(2, `${layers} capas`);
+  else if (layers > 35) add(1, `${layers} capas`);
   if (imagePixels > 4_000_000) add(2, 'imágenes muy grandes');
   else if (imagePixels > 1_500_000) add(1, 'imágenes grandes');
   if (gradients > 4) add(1, `${gradients} degradados`);
@@ -67,7 +67,7 @@ function checksFor(doc: Doc, out: FinalExport): Check[] {
       detail: out.errors.slice(0, 5).join(' · ') || undefined,
     },
     { level: kb < 50 ? 'ok' : kb < 150 ? 'warn' : 'bad', label: 'Peso', value: kb < 1024 ? `${kb.toFixed(1)} KB` : `${(kb / 1024).toFixed(2)} MB`, detail: kb >= 50 ? 'Por debajo de 50 KB carga al instante.' : undefined },
-    { level: layers <= 20 ? 'ok' : layers <= 40 ? 'warn' : 'bad', label: 'Capas', value: String(layers) },
+    { level: layers <= 35 ? 'ok' : layers <= 60 ? 'warn' : 'bad', label: 'Capas', value: String(layers) },
     {
       level: masks ? 'warn' : gradients > 4 ? 'warn' : 'ok',
       label: 'Máscaras y degradados',

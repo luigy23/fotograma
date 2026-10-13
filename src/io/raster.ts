@@ -10,10 +10,17 @@ import { makeTransform } from '../model/defaults';
 // Se carga aparte (usa react-dom/server) solo cuando hace falta.
 
 /** SVG de la escena en un frame. En pixel art, sin antialias y con imágenes nítidas. */
+const CRISP = 'path{shape-rendering:crispEdges}image{image-rendering:pixelated}';
+
+/** Envuelve en un <svg> para que React sepa que todo lo de dentro es SVG. */
+function svgMarkup(w: number, h: number, crisp: boolean, child: ReturnType<typeof createElement>): string {
+  return renderToStaticMarkup(
+    createElement('svg', { xmlns: 'http://www.w3.org/2000/svg', width: w, height: h, viewBox: `0 0 ${w} ${h}` }, crisp ? createElement('style', null, CRISP) : null, child),
+  );
+}
+
 export function sceneSvg(doc: Doc, frame: number, halos: Map<string, BakedHalo>): string {
-  const body = renderToStaticMarkup(createElement(Scene, { doc, frame, halos }));
-  const crisp = doc.pixel ? '<style>path{shape-rendering:crispEdges}image{image-rendering:pixelated}</style>' : '';
-  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${doc.width}" height="${doc.height}" viewBox="0 0 ${doc.width} ${doc.height}">${crisp}${body}</svg>`;
+  return svgMarkup(doc.width, doc.height, doc.pixel, createElement(Scene, { doc, frame, halos }));
 }
 
 export async function svgToImage(xml: string): Promise<HTMLImageElement> {
@@ -68,8 +75,7 @@ export async function bakePixelHalo(doc: Doc, node: Node, fx: Effect): Promise<B
   const h = Math.ceil(box.y + box.h) - y0;
   // La capa tal cual, sin su transformación, desplazada a su caja.
   const local = { ...node, effects: undefined, hidden: false, inFrame: undefined, outFrame: undefined, transform: makeTransform([-x0, -y0]) } as Node;
-  const body = renderToStaticMarkup(createElement(NodeView, { node: local, frame: 0, assets: doc.assets, pixel: doc.pixel }));
-  const xml = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><style>path{shape-rendering:crispEdges}image{image-rendering:pixelated}</style>${body}</svg>`;
+  const xml = svgMarkup(w, h, true, createElement(NodeView, { node: local, frame: 0, assets: doc.assets, pixel: doc.pixel }));
   const img = await svgToImage(xml);
   const { ctx } = canvas(w, h);
   ctx.drawImage(img, 0, 0);
